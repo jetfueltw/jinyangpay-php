@@ -52,14 +52,10 @@ class Payment
     protected function signPayload(array $payload)
     {
         $payload['p1_mchtid'] = $this->merchantId;
-        $payload['p7_version'] = 'v2.8';
-        $payload['p8_signtype'] = 1;
-        $payload['p11_isshow'] = 0;
         $payload['sign'] = Signature::generate($payload, $this->secretKey);
 
         return $payload;
     }
-
     /**
      * SignQuery request payload.
      *

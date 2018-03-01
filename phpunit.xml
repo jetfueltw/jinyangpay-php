@@ -15,7 +15,7 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="MERCHANT_ID" value="29337"/>
-        <env name="SECRET_KEY" value="76c30408877bb90b16dedacb709cbcfc"/>
+        <env name="MERCHANT_ID" value="22225"/>
+        <env name="SECRET_KEY" value="7eb1bed4217fe23c814b159fb6d66755"/>
     </php>
 </phpunit>

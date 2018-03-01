@@ -14,7 +14,6 @@ class Signature
     public static function generate(array $payload, $secretKey)
     {
         $baseString = self::buildBaseString($payload).$secretKey;
-        var_dump($baseString);
 
         return self::md5Hash($baseString);
     }
@@ -29,7 +28,6 @@ class Signature
     public static function generateQuery(array $payload, $secretKey)
     {
         $baseString = self::buildBaseQueryString($payload).$secretKey;
-        var_dump($baseString);
 
         return self::md5Hash($baseString);
     }
@@ -66,19 +64,11 @@ class Signature
 
     private static function buildBaseString(array $payload)
     {
-        ksort($payload);
-
-        $baseString = '';
-        foreach ($payload as $key => $value) {
-            $baseString .= $key.'='.$value.'&';
-        }
-
-        return rtrim($baseString, '&');
+        return "p1_mchtid={$payload['p1_mchtid']}&p2_paytype={$payload['p2_paytype']}&p3_paymoney={$payload['p3_paymoney']}&p4_orderno={$payload['p4_orderno']}&p5_callbackurl={$payload['p5_callbackurl']}&p6_notifyurl={$payload['p6_notifyurl']}&p7_version={$payload['p7_version']}&p8_signtype={$payload['p8_signtype']}&p9_attach={$payload['p9_attach']}&p10_appname={$payload['p10_appname']}&p11_isshow={$payload['p11_isshow']}&p12_orderip={$payload['p12_orderip']}";
     }
 
     private static function buildBaseQueryString(array $payload)
     {
-
         return "p1_mchtid={$payload['p1_mchtid']}&p2_signtype={$payload['p2_signtype']}&p3_orderno={$payload['p3_orderno']}&p4_version={$payload['p4_version']}";
     }
 

@@ -39,6 +39,13 @@ class DigitalPayment extends Payment
             'p3_paymoney'       => $amount,
             'p4_orderno'        => $tradeNo,
             'p5_callbackurl'    => $notifyUrl,
+            'p6_notifyurl'      => '',
+            'p7_version'        => 'v2.8',
+            'p8_signtype'       => 1,
+            'p9_attach'         => '',
+            'p10_appname'       => '',
+            'p11_isshow'        => 0,
+            'p12_orderip'       => '',
         ]);
 
         return $this->parseResponse($this->httpClient->post('zfapi/order/pay', $payload));

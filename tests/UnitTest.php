@@ -28,14 +28,14 @@ class UnitTest extends TestCase
         $tradeNo = date('YmdHis').rand(10000, 99999);
         $channel = Channel::WECHAT;
         $amount = 50;
-        $notifyUrl = 'http://www.yahoo.com';//$faker->url;
+        $notifyUrl = $faker->url;
 
         $payment = new DigitalPayment($this->merchantId, $this->secretKey);
         $result = $payment->order($tradeNo, $channel, $amount, $notifyUrl);
 
         var_dump($result);
 
-        //$this->assertContains('IMG|', $result['qrcodeUrl'], '', true);
+        $this->assertEquals(1, $result['rspCode']);
 
         return $tradeNo;
     }
@@ -45,97 +45,97 @@ class UnitTest extends TestCase
      *
      * @param $tradeNo
      */
-    // public function testDigitalPaymentOrderFind($tradeNo)
-    // {
-    //     $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
-    //     $result = $tradeQuery->find($tradeNo);
+    public function testDigitalPaymentOrderFind($tradeNo)
+    {
+        $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
+        $result = $tradeQuery->find($tradeNo);
 
-    //     var_dump($result);
+        var_dump($result);
 
-    //     $this->assertEquals('1', $result['rspCode']);
-    // }
+        $this->assertEquals(1, $result['rspCode']);
+    }
 
     /**
      * @depends testDigitalPaymentOrder
      *
      * @param $tradeNo
      */
-    // public function testDigitalPaymentOrderIsPaid($tradeNo)
-    // {
-    //     $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
-    //     $result = $tradeQuery->isPaid($tradeNo);
+    public function testDigitalPaymentOrderIsPaid($tradeNo)
+    {
+        $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
+        $result = $tradeQuery->isPaid($tradeNo);
 
-    //     $this->assertFalse($result);
-    // }
+        $this->assertFalse($result);
+    }
 
-    // public function testTradeQueryFindOrderNotExist()
-    // {
-    //     $faker = Factory::create();
-    //     $tradeNo = $faker->uuid;
+    public function testTradeQueryFindOrderNotExist()
+    {
+        $faker = Factory::create();
+        $tradeNo = $faker->uuid;
 
-    //     $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
-    //     $result = $tradeQuery->find($tradeNo);
+        $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
+        $result = $tradeQuery->find($tradeNo);
 
-    //     $this->assertNull($result);
-    // }
+        $this->assertNull($result);
+    }
 
-    // public function testTradeQueryIsPaidOrderNotExist()
-    // {
-    //     $faker = Factory::create();
-    //     $tradeNo = $faker->uuid;
+    public function testTradeQueryIsPaidOrderNotExist()
+    {
+        $faker = Factory::create();
+        $tradeNo = $faker->uuid;
 
-    //     $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
-    //     $result = $tradeQuery->isPaid($tradeNo);
+        $tradeQuery = new TradeQuery($this->merchantId, $this->secretKey);
+        $result = $tradeQuery->isPaid($tradeNo);
 
-    //     $this->assertFalse($result);
-    // }
+        $this->assertFalse($result);
+    }
 
-    // public function testNotifyWebhookVerifyNotifyPayload()
-    // {
-    //     $mock = $this->getMockForTrait(NotifyWebhook::class);
+    public function testNotifyWebhookVerifyNotifyPayload()
+    {
+        $mock = $this->getMockForTrait(NotifyWebhook::class);
 
-    //     $payload = [
-    //         'partner'     => '10080',
-    //         'ordernumber' => '150211000000000018',
-    //         'orderstatus' => '1',
-    //         'paymoney'    => '50',
-    //         'sysnumber'   => 'aa123456789',
-    //         'attach'      => 'abc',
-    //         'sign'        => 'a3fc7ee52cd803a35296647d6440f10f',
-    //     ];
+        $payload = [
+            'partner'     => '22225',
+            'ordernumber' => '150211000000000018',
+            'orderstatus' => '1',
+            'paymoney'    => '50',
+            'sysnumber'   => 'aa123456789',
+            'attach'      => '',
+            'sign'        => '5e334f7034b93e78fe35a52df446af06',
+        ];
 
-    //     $this->assertTrue($mock->verifyNotifyPayload($payload, $this->secretKey));
-    // }
+        $this->assertTrue($mock->verifyNotifyPayload($payload, $this->secretKey));
+    }
 
-    // public function testNotifyWebhookParseNotifyPayload()
-    // {
-    //     $mock = $this->getMockForTrait(NotifyWebhook::class);
+    public function testNotifyWebhookParseNotifyPayload()
+    {
+        $mock = $this->getMockForTrait(NotifyWebhook::class);
 
-    //     $payload = [
-    //         'partner'     => '10080',
-    //         'ordernumber' => '150211000000000018',
-    //         'orderstatus' => '1',
-    //         'paymoney'    => '50',
-    //         'sysnumber'   => 'aa123456789',
-    //         'attach'      => 'abc',
-    //         'sign'        => 'a3fc7ee52cd803a35296647d6440f10f',
-    //     ];
+        $payload = [
+            'partner'     => '22225',
+            'ordernumber' => '150211000000000018',
+            'orderstatus' => '1',
+            'paymoney'    => '50',
+            'sysnumber'   => 'aa123456789',
+            'attach'      => '',
+            'sign'        => '5e334f7034b93e78fe35a52df446af06',
+        ];
 
-    //     $this->assertEquals([
-    //         'partner'     => '10080',
-    //         'ordernumber' => '150211000000000018',
-    //         'orderstatus' => '1',
-    //         'paymoney'    => '50',
-    //         'sysnumber'   => 'aa123456789',
-    //         'attach'      => 'abc',
-    //         'sign'        => 'a3fc7ee52cd803a35296647d6440f10f',
-    //     ], $mock->parseNotifyPayload($payload, $this->secretKey));
-    // }
+        $this->assertEquals([
+            'partner'     => '22225',
+            'ordernumber' => '150211000000000018',
+            'orderstatus' => '1',
+            'paymoney'    => '50',
+            'sysnumber'   => 'aa123456789',
+            'attach'      => '',
+            'sign'        => '5e334f7034b93e78fe35a52df446af06',
+        ], $mock->parseNotifyPayload($payload, $this->secretKey));
+    }
 
-    // public function testNotifyWebhookSuccessNotifyResponse()
-    // {
-    //     $mock = $this->getMockForTrait(NotifyWebhook::class);
+    public function testNotifyWebhookSuccessNotifyResponse()
+    {
+        $mock = $this->getMockForTrait(NotifyWebhook::class);
 
-    //     $this->assertEquals('ok', $mock->successNotifyResponse());
-    // }
+        $this->assertEquals('ok', $mock->successNotifyResponse());
+    }
 }

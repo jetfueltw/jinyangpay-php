@@ -16,15 +16,4 @@ trait ResultParser
     {
         return json_decode($response, true);
     }
-
-    /**
-     * Parse JSON format response to array.
-     *
-     * @param string $response
-     * @return array
-     */
-    public function parseQueryResponse($response)
-    {
-        return json_decode($response, true);
-    }
 }

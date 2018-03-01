@@ -8,8 +8,6 @@ class TradeQuery extends Payment
 {
     use ResultParser;
 
-    const BASE_API_URL = 'https://cx.jinyangpay.com/';
-
     /**
      * DigitalPayment constructor.
      *
@@ -36,7 +34,7 @@ class TradeQuery extends Payment
             'p3_orderno' => $tradeNo,
         ]);
 
-        $order = $this->parseQueryResponse($this->httpClient->post('zfapi/order/singlequery', $payload));
+        $order = $this->parseResponse($this->httpClient->post('zfapi/order/singlequery', $payload));
 
         if ($order === null || !isset($order['rspCode']) || $order['rspCode'] !== 1) {
             return null;
