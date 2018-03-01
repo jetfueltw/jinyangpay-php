@@ -25,7 +25,7 @@ class Channel
     const TENPAY = 'TENPAY';
 
     /**
-     * 京東掃碼
+     * 京東支付
      */
     const JDPAY = 'JDPAY';
 
@@ -33,4 +33,9 @@ class Channel
      * 銀聯掃碼
      */
     const UNIONPAY = 'UNIONPAY';
+	
+	 /**
+     * 百度錢包
+     */
+    const BAIDUPAY = 'BAIDUPAY';
 }
