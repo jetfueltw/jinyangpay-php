@@ -27,7 +27,7 @@ class UnitTest extends TestCase
         $faker = Factory::create();
         $tradeNo = date('YmdHis').rand(10000, 99999);
         $channel = Channel::WECHAT;
-        $amount = 50;
+        $amount = 10;
         $notifyUrl = $faker->url;
 
         $payment = new DigitalPayment($this->merchantId, $this->secretKey);
